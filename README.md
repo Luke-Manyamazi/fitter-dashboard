@@ -1,5 +1,3 @@
-## 📌 README.md
-
 # Fitter Dashboard
 
 A real-time dashboard application that tracks the number of jobs completed by each fitter in the optical lab. The goal of this project is to display live operational data on a TV or monitor to improve visibility, performance tracking, and workflow efficiency.
