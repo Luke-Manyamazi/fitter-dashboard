@@ -1,13 +1,81 @@
+/* Global defaults */
 body {
   margin: 0;
-  font-family: 'Montserrat','Segoe','Arial', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Montserrat','Segoe','Arial','Roboto','Oxygen',
+    'Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
+/* If you want monospace code text */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Dashboard styles */
+.dashboard-container {
+  background: white;
+  padding: 30px 60px;
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.today {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.header-row,
+.time-row,
+.data-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 4fr 1fr;
+  border-bottom: 1px solid black;
+  font-size: 30px;
+  text-align: center;
+  padding: 0;
+  align-items: center;
+}
+
+.header-row {
+  font-size: 32px;
+  font-weight: 700;
+  border-top: 1px solid black;
+  padding: 12px 0;
+
+}
+
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.time-grid div {
+  border-right: 1px solid black;
+  padding: 12px;
+}
+
+.time-grid div:last-child {
+  border-right: none;
+}
+
+.data-row div {
+   border-right: 1px solid black;
+   vertical-align: middle;
+}
+
+.data-row div:last-child {
+  border-right: none;
+}
+
+.total-row {
+  font-weight: 900;
+  font-size: 34px;
 }
