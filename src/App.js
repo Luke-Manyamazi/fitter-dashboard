@@ -14,33 +14,42 @@ function App() {
         const res = await fetch(url);
         const text = await res.text();
 
-        const jsonText = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+        const jsonText = text.substring(
+          text.indexOf("{"),
+          text.lastIndexOf("}") + 1
+        );
         const json = JSON.parse(jsonText);
 
         const rows = (json.table.rows || [])
-          .map(row => ({
-            name: row.c[0]?.v || "",
-            target: row.c[1]?.v || "",
-            a10: row.c[2]?.v || "",
-            a1: row.c[3]?.v || "",
-            a3: row.c[4]?.v || "",
-            a430: row.c[5]?.v || "",
-            defects: row.c[6]?.v ?? 0,
+          .map((row) => ({
+            name: row.c[0]?.v?.toString().trim() || "",
+            target: Number(row.c[1]?.v || 0),
+            actual: Number(row.c[2]?.v || 0),
+            defects: Number(row.c[3]?.v || 0),
           }))
-          .filter(row =>
-            row.name &&
-            !String(row.name).includes("0.") &&
-            row.name !== "0"
-          );
+          .filter((row) => row.name !== "");
+        const normalRows = rows.filter(
+          (r) => !r.name.toLowerCase().includes("total")
+        );
+        const totalsRow = rows.find((r) =>
+          r.name.toLowerCase().includes("total")
+        );
 
-        const normalRows = rows.filter(r => !r.name.toLowerCase().includes("total"));
-        const totalsRow = rows.find(r => r.name.toLowerCase().includes("total"));
-
-        const sortedRows = [...normalRows.sort((a, b) => {
-          const totalA = Number(a.a10 || 0) + Number(a.a1 || 0) + Number(a.a3 || 0) + Number(a.a430 || 0);
-          const totalB = Number(b.a10 || 0) + Number(b.a1 || 0) + Number(b.a3 || 0) + Number(b.a430 || 0);
-          return totalB - totalA;
-        })];
+        const sortedRows = [
+          ...normalRows.sort((a, b) => {
+            const totalA =
+              Number(a.a10 || 0) +
+              Number(a.a1 || 0) +
+              Number(a.a3 || 0) +
+              Number(a.a430 || 0);
+            const totalB =
+              Number(b.a10 || 0) +
+              Number(b.a1 || 0) +
+              Number(b.a3 || 0) +
+              Number(b.a430 || 0);
+            return totalB - totalA;
+          }),
+        ];
 
         if (totalsRow) sortedRows.push(totalsRow);
 
@@ -67,35 +76,21 @@ function App() {
       <div className="header-row">
         <div>Name</div>
         <div>Target</div>
-        <div>Actual Output</div>
+        <div>Actual</div>
         <div>Defects</div>
-      </div>
-
-      {/* TIME ROW */}
-      <div className="time-row">
-        <div></div>
-        <div></div>
-        <div className="time-grid">
-          <div>10:00 AM</div>
-          <div>1:00 PM</div>
-          <div>3:00 PM</div>
-          <div>4:30 PM</div>
-        </div>
-        <div></div>
       </div>
 
       {/* DATA ROWS */}
       {data.map((item, i) => (
-        <div key={i} className={`data-row ${item.name.toLowerCase().includes("total") ? "total-row" : ""}`}>
+        <div
+          key={i}
+          className={`data-row ${
+            item.name.toLowerCase().includes("total") ? "total-row" : ""
+          }`}
+        >
           <div>{item.name}</div>
           <div>{item.target}</div>
-
-          <div className="time-grid">
-            {[item.a10, item.a1, item.a3, item.a430].map((val, idx) => (
-              <div key={idx}>{val}</div>
-            ))}
-          </div>
-
+          <div>{item.actual}</div>
           <div>{item.defects}</div>
         </div>
       ))}
