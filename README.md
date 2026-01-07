@@ -1,4 +1,4 @@
-```
+
 # Fitter Dashboard
 
 A real-time dashboard that tracks jobs completed by each fitter in the optical lab.
