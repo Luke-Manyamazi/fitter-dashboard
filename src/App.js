@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect, useState } from "react";
 import "./index.css";
 
@@ -20,6 +19,7 @@ function App() {
         );
         const json = JSON.parse(jsonText);
 
+        // ✅ Map exactly 4 columns
         const rows = (json.table.rows || [])
           .map((row) => ({
             name: row.c[0]?.v?.toString().trim() || "",
@@ -28,32 +28,25 @@ function App() {
             defects: Number(row.c[3]?.v || 0),
           }))
           .filter((row) => row.name !== "");
+
+        // ✅ Separate totals row
         const normalRows = rows.filter(
           (r) => !r.name.toLowerCase().includes("total")
         );
+
         const totalsRow = rows.find((r) =>
           r.name.toLowerCase().includes("total")
         );
 
-        const sortedRows = [
-          ...normalRows.sort((a, b) => {
-            const totalA =
-              Number(a.a10 || 0) +
-              Number(a.a1 || 0) +
-              Number(a.a3 || 0) +
-              Number(a.a430 || 0);
-            const totalB =
-              Number(b.a10 || 0) +
-              Number(b.a1 || 0) +
-              Number(b.a3 || 0) +
-              Number(b.a430 || 0);
-            return totalB - totalA;
-          }),
-        ];
+        // ✅ ALWAYS sort by highest Actual
+        normalRows.sort((a, b) => b.actual - a.actual);
 
-        if (totalsRow) sortedRows.push(totalsRow);
+        // ✅ Append totals last
+        const finalRows = totalsRow
+          ? [...normalRows, totalsRow]
+          : normalRows;
 
-        setData(sortedRows);
+        setData(finalRows);
       } catch (err) {
         console.error("Failed to load sheet:", err);
         setData([]);

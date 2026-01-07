@@ -4,6 +4,7 @@ body {
   font-family: 'Montserrat','Segoe','Arial','Roboto','Oxygen',
     'Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',
     sans-serif;
+   -webkit-font-smoothing: antialiased;
 }
 
 /* If you want monospace code text */
@@ -51,6 +52,7 @@ code {
   font-weight: 700;
   border-top: 1px solid black;
   padding: 12px 0;
+    background: #e1dddd;
 }
 
 .data-row div {
@@ -64,6 +66,7 @@ code {
 .total-row {
   font-weight: 900;
   font-size: 34px;
+  background: #e1dddd;
 }
 
 /* Scale entire dashboard to always fit the screen */
@@ -73,4 +76,32 @@ code {
   width: 1920px;
   height: 1080px;
   overflow: hidden;
+}
+
+/* Full screen wrapper */
+.scale-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Fixed design size */
+.dashboard-container {
+  width: 1920px;
+  height: 1080px;
+  background: white;
+  padding: 30px 60px;
+  transform-origin: top left;
+}
+
+/* Auto-scale */
+@media screen {
+  .dashboard-container {
+    transform: scale(
+      min(
+        calc(100vw / 1920),
+        calc(100vh / 1080)
+      )
+    );
+  }
 }
