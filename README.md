@@ -1,55 +1,59 @@
+```
 # Fitter Dashboard
 
-A real-time dashboard application that tracks the number of jobs completed by each fitter in the optical lab. The goal of this project is to display live operational data on a TV or monitor to improve visibility, performance tracking, and workflow efficiency.
+A real-time dashboard that tracks jobs completed by each fitter in the optical lab.
+Displays live operational data on a TV to improve visibility, performance tracking, and workflow efficiency.
 
----
+## Features
 
-## 🚀 Features
+- Live job count per fitter
+- Dashboard designed for TV or monitor display
+- Easy to maintain and extend
+- Future-ready for backend integration (API, MySQL, RxCore)
+- Clean, modern UI
 
-- Displays number of jobs processed per fitter in real-time
-- Structured into dashboard components for easy maintenance
-- Can run on a TV board or monitor for factory display
-- Designed for future integration with backend data sources (XML, C#, or API based)
-- Clean and modern UI
+## Tech Stack
 
----
+- **Frontend:** React
+- **Backend:** Node.js + Express (API integration)
+- **Optional hardware:** Raspberry Pi for TV display
 
-## 🧰 Tech Stack
+## Project Structure
 
-- **Frontend:** React (or your chosen framework)
-- **Backend:** To be integrated (future stage)
-- **Possible hardware:** Raspberry Pi for TV display
-
----
-
-## 📂 Project Structure
 ```
+
 fitter-dashboard/
-├── public/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── utils/
+├── public/       # Static assets
+├── server/       # Backend API
+├── src/          # React app source code
 ├── .gitignore
 ├── package.json
-├── README.md
-```
+└── README.md
 
-## 🧑‍💻 Usage
+````
 
-### 1. Install dependencies
+## Usage
+
+### Install dependencies
 ```bash
 npm install
 ````
 
-### 2. Run development server
+### Run development server
 
 ```bash
 npm start
 ```
 
-### 3. Build production bundle
+### Run backend API
+
+```bash
+node server/index.js
+```
+
+### Build production bundle
 
 ```bash
 npm run build
 ```
+

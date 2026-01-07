@@ -19,7 +19,7 @@ function App() {
         );
         const json = JSON.parse(jsonText);
 
-        // ✅ Map exactly 4 columns
+        // Map exactly 4 columns
         const rows = (json.table.rows || [])
           .map((row) => ({
             name: row.c[0]?.v?.toString().trim() || "",
@@ -29,7 +29,7 @@ function App() {
           }))
           .filter((row) => row.name !== "");
 
-        // ✅ Separate totals row
+        // Separate totals row
         const normalRows = rows.filter(
           (r) => !r.name.toLowerCase().includes("total")
         );
@@ -38,10 +38,10 @@ function App() {
           r.name.toLowerCase().includes("total")
         );
 
-        // ✅ ALWAYS sort by highest Actual
+        // ALWAYS sort by highest Actual
         normalRows.sort((a, b) => b.actual - a.actual);
 
-        // ✅ Append totals last
+        // Append totals last
         const finalRows = totalsRow
           ? [...normalRows, totalsRow]
           : normalRows;
